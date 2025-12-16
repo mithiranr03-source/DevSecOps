@@ -14,6 +14,7 @@ pipeline {
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
         IMAGE_NAME   = 'mithiranaws/amazon'
+        DOCKER_USER  = 'mithiranaws'
     }
 
     stages {
@@ -83,13 +84,9 @@ pipeline {
 
         stage('Tag & Push to DockerHub') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'docker-cred',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
+                withCredentials([string(credentialsId: 'docker-cred', variable: 'DOCKER_PASS')]) {
                     sh """
-                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    echo "$DOCKER_PASS" | docker login -u ${DOCKER_USER} --password-stdin
                     docker push ${IMAGE_TAG}
                     docker tag ${IMAGE_TAG} ${IMAGE_NAME}:latest
                     docker push ${IMAGE_NAME}:latest
@@ -98,7 +95,7 @@ pipeline {
             }
         }
 
-        stage('Trivy Image Scan') {
+        stage('Trivy Image Scan (Non-Blocking)') {
             steps {
                 sh """
                 trivy image \
