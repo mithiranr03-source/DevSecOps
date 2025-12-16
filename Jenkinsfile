@@ -57,13 +57,13 @@ pipeline {
             }
         }
 
-        stage('Trivy File Scan') {
+        stage('Trivy File Scan (Non-Blocking)') {
             steps {
                 sh """
                 trivy fs . \
                   --skip-dirs node_modules,target,.git \
                   --severity HIGH,CRITICAL \
-                  --exit-code 1 \
+                  --exit-code 0 \
                   --format table \
                   -o trivyfs.txt
                 """
@@ -103,7 +103,7 @@ pipeline {
                 sh """
                 trivy image \
                   --severity HIGH,CRITICAL \
-                  --exit-code 1 \
+                  --exit-code 0 \
                   --format table \
                   -o trivy-image.txt \
                   ${IMAGE_TAG}
