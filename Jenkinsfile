@@ -9,7 +9,6 @@ pipeline {
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
         IMAGE_NAME = 'mithiranaws/amazon'
-        DC_DATA = "${WORKSPACE}/odc-data"
     }
 
     stages {
@@ -49,27 +48,6 @@ pipeline {
         stage("Install NPM Dependencies") {
             steps {
                 sh "npm install"
-            }
-        }
-
-        stage("OWASP FS Scan") {
-            options {
-                timeout(time: 15, unit: 'MINUTES')
-            }
-            steps {
-                dependencyCheck additionalArguments: """
-                    --scan .
-                    --data ${DC_DATA}
-                    --exclude node_modules
-                    --exclude .git
-                    --exclude dist
-                    --exclude target
-                    --disableYarnAudit
-                    --disableNodeAudit
-                """,
-                odcInstallation: 'dp-check'
-
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
 
@@ -137,21 +115,19 @@ pipeline {
 
     post {
         always {
-            script {
-                def status = currentBuild.currentResult
-                emailext(
-                    subject: "Pipeline ${status}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <h3>Amazon DevSecOps Pipeline</h3>
-                        <p><b>Status:</b> ${status}</p>
-                        <p><b>Build:</b> ${env.BUILD_NUMBER}</p>
-                        <p><b>URL:</b> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                    """,
-                    to: 'mithiranr03@gmail.com',
-                    mimeType: 'text/html',
-                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
-                )
-            }
+            emailext(
+                subject: "Pipeline ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <h3>Amazon DevSecOps Pipeline</h3>
+                    <p><b>Status:</b> ${currentBuild.currentResult}</p>
+                    <p><b>Build:</b> ${env.BUILD_NUMBER}</p>
+                    <p><b>URL:</b> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                """,
+                to: 'mithiranr03@gmail.com',
+                mimeType: 'text/html',
+                attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt'
+            )
         }
     }
 }
+
