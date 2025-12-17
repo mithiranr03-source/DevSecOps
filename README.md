@@ -1,4 +1,4 @@
-# Amazon Shopping Website CICD DevSecOps — Setup Guide
+# Amazon Shopping Website DevSecOps Pipelines — Setup Guide
 
 This README collects useful commands and links to install common DevOps, CI/CD, and security tooling on Ubuntu systems. It has been cleaned up, organized, and corrected for clarity. Always review commands for your environment and needs.
 
