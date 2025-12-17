@@ -24,6 +24,11 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 
 ---
 
+<img width="1408" height="768" alt="DevSecOps" src="https://github.com/user-attachments/assets/f68f626d-7ed9-49de-a03b-35e675ae4b52" />
+
+
+
+
 ## Ports to Enable in Security Group
 
 | Service         | Port  |
