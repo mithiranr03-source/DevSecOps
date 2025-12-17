@@ -32,10 +32,10 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 | HTTPS           | 443   |
 | SSH             | 22    |
 | Jenkins         | 8080  |
-| SonarQube       |       |
-| Prometheus      |       |
-| Node Exporter   |       |
-| Grafana         |       |
+| SonarQube       | 9000  |
+| Prometheus      | 9090  |
+| Node Exporter   | 9100  | 
+| Grafana         | 3000  |
 
 ---
 
@@ -448,7 +448,7 @@ kubectl get nodes
 ✅ Status should become:
     Ready
     
-📦 PHASE 4: Deploy Your Amazon App to Kubernetes
+##Deploy Your Amazon App to Kubernetes
 
 Now the real deployment.
 
