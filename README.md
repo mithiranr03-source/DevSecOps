@@ -31,7 +31,7 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 | HTTP            | 80    |
 | HTTPS           | 443   |
 | SSH             | 22    |
-| Jenkins         |       |
+| Jenkins         | 8080  |
 | SonarQube       |       |
 | Prometheus      |       |
 | Node Exporter   |       |
