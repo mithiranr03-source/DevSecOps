@@ -387,19 +387,25 @@ Webhook example:
 
 ## Kubernetes Setup (Single Node Cluster)
 1️⃣ Disable swap (MANDATORY)
+```
 sudo swapoff -a
 sudo sed -i '/ swap / s/^/#/' /etc/fstab
+```
 
 2️⃣ Install container runtime (containerd)
+```
 sudo apt update
 sudo apt install -y containerd
-
+```
+```
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 sudo systemctl enable containerd
+```
 
 3️⃣ Install Kubernetes tools
+```
 sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl
 
@@ -410,40 +416,47 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
-
+```
 
 Verify:
 
+```
 kubectl version --client
+```
 
 #Initialize Kubernetes Cluster
 1️⃣ Initialize cluster
+```bash 
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+```
 
 2️⃣ Configure kubectl for ubuntu user
+
+```bash 
 mkdir -p $HOME/.kube
 sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
+```
 
 Test:
-
+```bash
 kubectl get nodes
-
+````
 
 You’ll see:
-
+```
 STATUS: NotReady
-
+```
 
 That’s normal.
 
 3️⃣ Install CNI (Calico – REQUIRED)
+```bash
 
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
 
 kubectl get nodes
-
+```
 
 ✅ Status should become:
     Ready
@@ -453,17 +466,20 @@ kubectl get nodes
 Now the real deployment.
 
 1️⃣ Create namespace
+```bash
 kubectl create namespace amazon
+```
 
 2️⃣ Create Deployment YAML
 
 Create file:
-
+```
 nano amazon-deployment.yaml
+```
 
 
 Paste this 👇
-
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -485,15 +501,17 @@ spec:
         ports:
         - containerPort: 80
 
-
+```
 Apply:
 
+```
 kubectl apply -f amazon-deployment.yaml
-
+```
 
 Check:
-
+```
 kubectl get pods -n amazon
+```
 
 
 All pods should be Running.
@@ -502,11 +520,13 @@ All pods should be Running.
 
 Create service file:
 
+```
 nano amazon-service.yaml
-
+```
 
 Paste:
 
+```
 apiVersion: v1
 kind: Service
 metadata:
@@ -520,23 +540,27 @@ spec:
   - port: 80
     targetPort: 80
     nodePort: 30007
+```
 
 
 Apply:
 
+```
 kubectl apply -f amazon-service.yaml
-
+```
 
 Check:
 
+```
 kubectl get svc -n amazon
-
+```
 #Verify Everything
 
+```
 kubectl get pods
 kubectl get svc
 kubectl describe pod amazon-app
-
+```
 
 ##Access the Application
 Open browser:
