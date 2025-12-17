@@ -19,7 +19,7 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 - [Jenkins Credentials to Store](#jenkins-credentials-to-store)
 - [Jenkins Tools Configuration](#jenkins-tools-configuration)
 - [Jenkins System Configuration](#jenkins-system-configuration)
-- [kubernetes configuration]
+- kubernetes configuration
 
 
 ---
