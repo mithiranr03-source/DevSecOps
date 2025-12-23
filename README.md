@@ -391,13 +391,13 @@ Webhook example:
 
 
 ## Kubernetes Setup (Single Node Cluster)
-1️⃣ Disable swap (MANDATORY)
+Disable swap (MANDATORY)
 ```
 sudo swapoff -a
 sudo sed -i '/ swap / s/^/#/' /etc/fstab
 ```
 
-2️⃣ Install container runtime (containerd)
+Install container runtime (containerd)
 ```
 sudo apt update
 sudo apt install -y containerd
@@ -409,7 +409,7 @@ sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
 
-3️⃣ Install Kubernetes tools
+Install Kubernetes tools
 ```
 sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl
@@ -430,12 +430,12 @@ kubectl version --client
 ```
 
 #Initialize Kubernetes Cluster
-1️⃣ Initialize cluster
+Initialize cluster
 ```bash 
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
-2️⃣ Configure kubectl for ubuntu user
+Configure kubectl for ubuntu user
 
 ```bash 
 mkdir -p $HOME/.kube
@@ -455,7 +455,7 @@ STATUS: NotReady
 
 That’s normal.
 
-3️⃣ Install CNI (Calico – REQUIRED)
+Install CNI (Calico – REQUIRED)
 ```bash
 
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
@@ -470,12 +470,12 @@ kubectl get nodes
 
 Now the real deployment.
 
-1️⃣ Create namespace
+Create namespace
 ```bash
 kubectl create namespace amazon
 ```
 
-2️⃣ Create Deployment YAML
+Create Deployment YAML
 
 Create file:
 ```
@@ -521,7 +521,7 @@ kubectl get pods -n amazon
 
 All pods should be Running.
 
-3️⃣ Expose App (Service)
+Expose App (Service)
 
 Create service file:
 
