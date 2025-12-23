@@ -1,30 +1,30 @@
-# Amazon Shopping Website DevSecOps Pipelines — Setup Guide
+# End-to-End DevSecOps Pipelines — Setup Guide
 
-This README collects useful commands and links to install common DevOps, CI/CD, and security tooling on Ubuntu systems. It has been cleaned up, organized, and corrected for clarity. Always review commands for your environment and needs.
+This document serves as a reference for installing widely used DevOps, CI/CD, and security tooling on Ubuntu-based systems. The information has been reviewed, organized, and improved for accuracy and clarity. Ensure all commands are appropriate for your environment before use.
 
-> **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, `<ACCOUNT_ID>`, and similar placeholders with your actual values.
 ---
 
 
-- [Prerequisites](#prerequisites)
-- [System Update & Common Packages](#system-update--common-packages)
-- [Java](#java)
-- [Jenkins](#jenkins)
-- [Docker](#docker)
-- [Trivy](#trivy-vulnerability-scanner)
-- [Prometheus](#prometheus)
-- [Node Exporter](#node-exporter)
-- [Grafana](#grafana)
-- [Jenkins Plugins to Install](#jenkins-plugins-to-install)
-- [Jenkins Credentials to Store](#jenkins-credentials-to-store)
-- [Jenkins Tools Configuration](#jenkins-tools-configuration)
-- [Jenkins System Configuration](#jenkins-system-configuration)
+- Prerequisites
+- System Update & Common Packages
+- Java
+- Jenkins
+- Docker
+- Trivy
+- Prometheus
+- Node Exporter
+- Grafana
+- Jenkins Plugins to Install
+- Jenkins Credentials to Store
+- Jenkins Tools Configuration
+- Jenkins System Configuration
 - kubernetes configuration
 
 
 ---
 
-<img width="1408" height="768" alt="DevSecOps" src="https://github.com/user-attachments/assets/f68f626d-7ed9-49de-a03b-35e675ae4b52" />
+<img width="1408" height="768" alt="DevSecOps" src="https://github.com/user-attachments/assets/b975f6ed-278b-4ad5-9c25-aa1cef05ddbb" />
+
 
 
 
